@@ -13,7 +13,7 @@ return {
       vim.g["test#strategy"] = "neovim"
       vim.g["test#neovim#term_position"] = "belowright"
       vim.g["test#neovim#preserve_screen"] = 1
-      vim.g["test#python#runner"] = "pyunit" -- pytest
+      vim.g["test#python#runner"] = "pytest"
     end,
   },
   {
@@ -42,7 +42,7 @@ return {
         adapters = {
           require "neotest-python" {
             dap = { justMyCode = false },
-            runner = "unittest",
+            runner = "pytest",
           },
           require "neotest-plenary",
           require "neotest-vim-test" {
