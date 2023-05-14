@@ -16,6 +16,7 @@ return {
         enabled = false,
       },
       { "jcdickinson/codeium.nvim", config = true, enabled = false },
+      { "zbirenbaum/copilot.lua", config = true, enabled = false },
       {
         "jcdickinson/http.nvim",
         build = "cargo build --workspace --release",
@@ -31,6 +32,7 @@ return {
       local source_names = {
         nvim_lsp = "(LSP)",
         luasnip = "(Snippet)",
+        copilot = "(Copilot)",
         -- cmp_tabnine = "(TabNine)",
         -- codeium = "(Codeium)",
         buffer = "(Buffer)",
@@ -122,6 +124,7 @@ return {
           { name = "nvim_lsp_signature_help", group_index = 1 },
           { name = "nvim_lsp", group_index = 1 },
           -- { name = "cmp_tabnine", group_index = 1 },
+          { name = "copilot", group_index = 1 },
           { name = "codeium", group_index = 1 },
           { name = "luasnip", group_index = 1 },
           { name = "buffer", group_index = 2 },
@@ -143,9 +146,9 @@ return {
 
             -- if entry.source.name == "cmp_tabnine" then
             --   item.kind = ""
-            -- elseif entry.source.name == "codeium" then
-            --   item.kind = ""
-            -- end
+            if entry.source.name == "copilot" then
+              item.kind = ""
+            end
             return item
           end,
         },
