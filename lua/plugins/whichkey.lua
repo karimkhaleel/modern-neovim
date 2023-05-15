@@ -80,6 +80,10 @@ return {
             p = "Parameter",
             c = "Class",
           },
+          c = {
+            name = "+Code Config",
+            f = { "<cmd>lua require('plugins/lsp/format').toggle()<cr>", "Toggle Format on Save" },
+          },
         },
       },
     },
