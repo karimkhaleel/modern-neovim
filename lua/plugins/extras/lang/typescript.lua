@@ -2,13 +2,25 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "javascript", "typescript", "tsx" })
+      vim.list_extend(opts.ensure_installed, { "javascript", "typescript", "tsx", "svelte", "scss", "vue" })
     end,
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
+      local nls = require "null-ls"
+      local eslint_args = {
+        command = "eslint_d",
+        args = { "--stdin", "--stdin-filename", "$FILENAME", "--format", "json" },
+        debounce = 100,
+        stdin = true,
+        -- In order to use the locally installed eslint_d
+        cwd = vim.loop.cwd,
+      }
       table.insert(opts.sources, require "typescript.extensions.null-ls.code-actions")
+      table.insert(opts.sources, nls.builtins.formatting.prettierd)
+      table.insert(opts.sources, nls.builtins.code_actions.eslint_d.with(eslint_args))
+      table.insert(opts.sources, nls.builtins.diagnostics.eslint_d.with(eslint_args))
     end,
   },
   {
