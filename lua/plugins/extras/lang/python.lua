@@ -21,7 +21,7 @@ return {
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "debugpy", "black", "isort" })
+      vim.list_extend(opts.ensure_installed, { "debugpy", "black", "ruff", "isort" })
     end,
   },
   {
