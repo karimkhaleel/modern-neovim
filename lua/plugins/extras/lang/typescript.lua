@@ -9,9 +9,25 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
       local nls = require "null-ls"
-      local eslint_args = {
+      local eslint_opts_code_actions = {
         command = "eslint_d",
-        args = { "--stdin", "--stdin-filename", "$FILENAME", "--format", "json" },
+        args = { "-f", "json", "--stdin", "--stdin-filename", "$FILENAME" },
+        debounce = 100,
+        stdin = true,
+        -- In order to use the locally installed eslint_d
+        cwd = vim.loop.cwd,
+      }
+      local eslint_opts_diagnostics = {
+        command = "eslint_d",
+        args = { "-f", "json", "--stdin", "--stdin-filename", "$FILENAME" },
+        debounce = 100,
+        stdin = true,
+        -- In order to use the locally installed eslint_d
+        cwd = vim.loop.cwd,
+      }
+      local eslint_opts_formatting = {
+        command = "eslint_d",
+        args = { "--fix-to-stdout", "--stdin", "--stdin-filename", "$FILENAME" },
         debounce = 100,
         stdin = true,
         -- In order to use the locally installed eslint_d
@@ -19,8 +35,9 @@ return {
       }
       table.insert(opts.sources, require "typescript.extensions.null-ls.code-actions")
       table.insert(opts.sources, nls.builtins.formatting.prettierd)
-      table.insert(opts.sources, nls.builtins.code_actions.eslint_d.with(eslint_args))
-      table.insert(opts.sources, nls.builtins.diagnostics.eslint_d.with(eslint_args))
+      table.insert(opts.sources, nls.builtins.code_actions.eslint_d.with(eslint_opts_code_actions))
+      table.insert(opts.sources, nls.builtins.diagnostics.eslint_d.with(eslint_opts_diagnostics))
+      table.insert(opts.sources, nls.builtins.formatting.eslint_d.with(eslint_opts_formatting))
     end,
   },
   {
