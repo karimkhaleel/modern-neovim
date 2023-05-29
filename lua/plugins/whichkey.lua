@@ -57,7 +57,9 @@ return {
         -- o = { name = "+Orgmode" },
         r = { name = "+Refactor" },
         t = { name = "+Test", N = { name = "Neotest" }, o = { "Overseer" } },
-        v = { name = "+View" },
+        v = { name = "+View",
+          d = { "<cmd>lua vim.diagnostic.open_float()<cr>", "Diagnostics" },
+        },
         z = { name = "+System" },
         -- stylua: ignore
         s = {
