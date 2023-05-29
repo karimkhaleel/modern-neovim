@@ -226,6 +226,7 @@ return {
     },
     config = function(_, opts)
       require("luasnip").setup(opts)
+      require("luasnip").config.setup({store_selection_keys="<Tab>"})
 
       local snippets_folder = vim.fn.stdpath "config" .. "/lua/plugins/completion/snippets/"
       require("luasnip.loaders.from_lua").lazy_load { paths = snippets_folder }
