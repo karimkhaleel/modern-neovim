@@ -36,7 +36,7 @@ keymap("v", "<", "<gv")
 keymap("v", ">", ">gv")
 
 -- Paste over currently selected text without yanking it
-keymap("v", "p", '"_dp')
+keymap("v", "p", '"_d[p')
 
 -- Move Lines
 keymap("n", "<A-j>", ":m .+1<CR>==")
