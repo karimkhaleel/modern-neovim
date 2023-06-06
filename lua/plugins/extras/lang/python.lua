@@ -36,7 +36,8 @@ return {
                 typeCheckingMode = "off",
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
-                diagnosticMode = "workspace", -- "openFilesOnly",
+                diagnosticMode = "openFilesOnly", -- "openFilesOnly" or "openFilesOnly"
+                stubPath = vim.fn.stdpath "data" .. "/lazy/python-type-stubs/stubs",
               },
             },
           },
@@ -99,5 +100,9 @@ return {
         end,
       },
     },
+  },
+  {
+    "microsoft/python-type-stubs",
+    cond = false,
   },
 }
