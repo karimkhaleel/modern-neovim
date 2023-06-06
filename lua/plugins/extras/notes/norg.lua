@@ -1,18 +1,19 @@
 return {
   {
     "nvim-neorg/neorg",
-    enabled = false,
+    enabled = true,
     ft = { "norg" },
     build = ":Neorg sync-parsers",
     opts = {
       load = {
         ["core.defaults"] = {}, -- Loads default behaviour
-        ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
-        ["core.norg.qol.toc"] = {},
-        ["core.norg.dirman"] = { -- Manages Neorg workspaces
+        ["core.concealer"] = {}, -- Adds pretty icons to your documents
+        ["core.qol.toc"] = {},
+        ["core.dirman"] = { -- Manages Neorg workspaces
           config = {
             workspaces = {
-              notes = vim.env.HOME .. "/norg-notes/",
+              work = vim.env.HOME .. "/notes/work",
+              home = vim.env.HOME .. "/notes/home",
             },
           },
         },
