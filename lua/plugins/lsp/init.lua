@@ -98,7 +98,7 @@ return {
       }
     end,
   },
-  { "jay-babu/mason-null-ls.nvim", opts = { ensure_installed = nil, automatic_installation = true, automatic_setup = false } },
+  { "jay-babu/mason-null-ls.nvim", opts = { ensure_installed = nil, automatic_installation = { exclude = { "mypy" } }, automatic_setup = false } },
   {
     "utilyre/barbecue.nvim",
     event = "VeryLazy",

@@ -9,64 +9,64 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
       local nls = require "null-ls"
-      table.insert(opts.sources, nls.builtins.formatting.black)
-      table.insert(
-        opts.sources,
-        nls.builtins.formatting.isort.with {
-          extra_args = { "--profile", "black" },
-        }
+      local function insert(...)
+        for _, value in ipairs { ... } do
+          table.insert(opts.sources, value)
+        end
+      end
+      insert(
+        nls.builtins.formatting.black,
+        nls.builtins.formatting.isort.with { extra_args = { "--profile", "black" } },
+        nls.builtins.diagnostics.flake8,
+        nls.builtins.diagnostics.mypy
       )
     end,
   },
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "debugpy", "black", "ruff", "isort" })
+      vim.list_extend(opts.ensure_installed, { "debugpy" })
     end,
   },
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        pyright = {
+        pylsp = {
+          cmd = { "pylsp" },
+          filetypes = { "python" },
+          root_dir = require("lspconfig.util").root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt"),
           settings = {
-            python = {
-              analysis = {
-                autoImportCompletions = true,
-                typeCheckingMode = "off",
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                diagnosticMode = "openFilesOnly", -- "openFilesOnly" or "openFilesOnly"
-                stubPath = vim.fn.stdpath "data" .. "/lazy/python-type-stubs/stubs",
+            pylsp = {
+              configurationSources = { "flake8" },
+              plugins = {
+                pycodestyle = { enabled = false },
+                pydocstyle = { enabled = false },
+                pylint = { enabled = false },
+                yapf = { enabled = false },
+                pyflakes = { enabled = false },
               },
             },
           },
         },
-        ruff_lsp = {
-          init_options = {
-            settings = {
-              args = { "--max-line-length=180" },
-            },
-          },
-        },
       },
-      setup = {
-        pyright = function(_, opts)
-          local lsp_utils = require "plugins.lsp.utils"
-          lsp_utils.on_attach(function(client, buffer)
-            -- stylua: ignore
-            if client.name == "pyright" then
-              vim.keymap.set("n", "<leader>tC", function() require("dap-python").test_class() end,
-                { buffer = buffer, desc = "Debug Class" })
-              vim.keymap.set("n", "<leader>tM", function() require("dap-python").test_method() end,
-                { buffer = buffer, desc = "Debug Method" })
-              vim.keymap.set("v", "<leader>tS", function() require("dap-python").debug_selection() end,
-                { buffer = buffer, desc = "Debug Selection" })
-            end
-          end)
-          return true
-        end,
-      },
+    },
+    setup = {
+      pylsp = function(_, opts)
+        local lsp_utils = require "plugins.lsp.utils"
+        lsp_utils.on_attach(function(client, buffer)
+          -- stylua: ignore
+          if client.name == "python-lsp-server" then
+            vim.keymap.set("n", "<leader>tC", function() require("dap-python").test_class() end,
+              { buffer = buffer, desc = "Debug Class" })
+            vim.keymap.set("n", "<leader>tM", function() require("dap-python").test_method() end,
+              { buffer = buffer, desc = "Debug Method" })
+            vim.keymap.set("v", "<leader>tS", function() require("dap-python").debug_selection() end,
+              { buffer = buffer, desc = "Debug Selection" })
+          end
+        end)
+        return true
+      end,
     },
   },
   {
