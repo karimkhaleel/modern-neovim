@@ -16,6 +16,13 @@ end)()
 
 return {
   {
+    "LiadOz/nvim-dap-repl-highlights",
+    event = "VeryLazy",
+    config = function(_, opts)
+      require("nvim-dap-repl-highlights").setup {}
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
@@ -45,6 +52,7 @@ return {
         "vim",
         "vimdoc",
         "yaml",
+        "dap_repl",
       },
       highlight = { enable = true, additional_vim_regex_highlighting = { "org", "markdown" } },
       indent = { enable = true },
