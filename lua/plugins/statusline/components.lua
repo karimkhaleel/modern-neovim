@@ -1,17 +1,11 @@
 local icons = require "config.icons"
 local Job = require "plenary.job"
-
-local function fg(name)
-  return function()
-    local hl = vim.api.nvim_get_hl_by_name(name, true)
-    return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
-  end
-end
+local Utils = require "utils"
 
 return {
   spaces = {
     function()
-      local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
+      local shiftwidth = vim.api.nvim_get_option_value("shiftwidth", { buf = 0 })
       return icons.ui.Tab .. " " .. shiftwidth
     end,
     padding = 1,
@@ -127,7 +121,7 @@ return {
     cond = function()
       return package.loaded["noice"] and require("noice").api.status.mode.has()
     end,
-    color = fg "Constant",
+    color = Utils.fg "Constant",
   },
   noice_command = {
     function()
@@ -136,6 +130,6 @@ return {
     cond = function()
       return package.loaded["noice"] and require("noice").api.status.command.has()
     end,
-    color = fg "Statement",
+    color = Utils.fg "Statement",
   },
 }
