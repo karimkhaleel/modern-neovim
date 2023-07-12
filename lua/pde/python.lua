@@ -13,7 +13,17 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
       local nls = require "null-ls"
-      table.insert(opts.sources, nls.builtins.formatting.black)
+      local function insert(...)
+        for _, value in ipairs { ... } do
+          table.insert(opts.sources, value)
+        end
+      end
+      insert(
+        nls.builtins.formatting.black,
+        nls.builtins.formatting.isort.with { extra_args = { "--profile", "black" } },
+        nls.builtins.diagnostics.flake8,
+        nls.builtins.diagnostics.mypy
+      )
     end,
   },
   {
