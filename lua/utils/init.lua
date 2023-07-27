@@ -50,6 +50,12 @@ function M.fg(name)
   return fg and { fg = string.format("#%06x", fg) }
 end
 
+function M.find_all_files()
+  local opts = {}
+  local telescope = require "telescope.builtin"
+  telescope.find_files(opts)
+end
+
 function M.find_files()
   local opts = {}
   local telescope = require "telescope.builtin"

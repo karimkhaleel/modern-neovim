@@ -24,7 +24,7 @@ return {
     cmd = "Telescope",
     -- stylua: ignore
     keys = {
-      { "<leader><space>", require("utils").find_files, desc = "Find Files" },
+      { "<leader><space>", require("utils").find_all_files, desc = "Find Files" },
       { "<leader>ff", require("utils").telescope("files"), desc = "Find Files (Root Dir)" },
       { "<leader>fF", require("utils").telescope("files", { cwd = false }), desc = "Find Files (Cwd)" },
       { "<leader>fo", "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", desc = "Recent" },
