@@ -25,16 +25,19 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader><space>", require("utils").find_files, desc = "Find Files" },
-      { "<leader>ff", require("utils").find_files, desc = "Find Files" },
+      { "<leader>ff", require("utils").telescope("files"), desc = "Find Files (Root Dir)" },
+      { "<leader>fF", require("utils").telescope("files", { cwd = false }), desc = "Find Files (Cwd)" },
       { "<leader>fo", "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", desc = "Recent" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+      { "<leader>fc", "<cmd>cd %:p:h<cr>", desc = "Change WorkDir" },
       { "<leader>fr", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
       { "<leader>gc", "<cmd>Telescope conventional_commits<cr>", desc = "Conventional Commits" },
       { "<leader>zs", "<cmd>Telescope lazy<cr>", desc = "Search Plugins" },
       { "<leader>ps", "<cmd>Telescope repo list<cr>", desc = "Search" },
       { "<leader>hs", "<cmd>Telescope help_tags<cr>", desc = "Search" },
       { "<leader>pp", function() require("telescope").extensions.project.project { display_type = "minimal" } end, desc = "List", },
-      { "<leader>sw", "<cmd>Telescope live_grep<cr>", desc = "Workspace" },
+      { "<leader>sw", require("utils").telescope("live_grep"), desc = "Grep (Root Dir)" },
+      { "<leader>sW", require("utils").telescope("live_grep", { cwd = false }), desc = "Grep (Cwd)" },
       { "<leader>ss", "<cmd>Telescope luasnip<cr>", desc = "Snippets" },
       { "<leader>sb", function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Buffer", },
       { "<leader>vo", "<cmd>Telescope aerial<cr>", desc = "Code Outline" },
@@ -153,6 +156,7 @@ return {
       telescope.load_extension "conventional_commits"
       telescope.load_extension "lazy"
       telescope.load_extension "noice"
+      telescope.load_extension "notify"
       -- telescope.load_extension "macros"
     end,
   },
