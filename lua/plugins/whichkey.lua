@@ -11,6 +11,7 @@ return {
   },
   {
     "folke/which-key.nvim",
+    enabled = true,
     dependencies = {
       "mrjones2014/legendary.nvim",
     },
@@ -51,12 +52,12 @@ return {
         f = { name = "+File" },
         h = { name = "+Help" },
         j = { name = "+Jump" },
-        g = { name = "+Git", h = { name = "Hunk" }, t = { name = "Toggle" } },
+        g = { name = "+Git", h = { name = "+Hunk" }, t = { name = "+Toggle" } },
         n = { name = "+Notes" },
         p = { name = "+Project" },
         -- o = { name = "+Orgmode" },
         r = { name = "+Refactor" },
-        t = { name = "+Test", N = { name = "Neotest" }, o = { "Overseer" } },
+        t = { name = "+Test", N = { name = "+Neotest" }, o = { "+Overseer" } },
         v = { name = "+View",
           d = { "<cmd>lua vim.diagnostic.open_float()<cr>", "Diagnostics" },
         },

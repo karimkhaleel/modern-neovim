@@ -26,5 +26,6 @@ return {
     terraform = false,
     typescript = true,
     vuejs = false,
+    yaml = true,
   },
 }
